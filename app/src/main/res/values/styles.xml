@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.App.Body2_Luna" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/abril_fatface</item>
+        <item name="android:fontFamily">@font/abril_fatface</item>
+    </style>
+
+    <style name="TextAppearance.App.Body2_Mars" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/aclonica</item>
+        <item name="android:fontFamily">@font/aclonica</item>
+    </style>
+
+    <style name="ShapeAppearanceSmallComponent.Chip" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="colorOnBackgroundChipLuna" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/colorOnBackgroundChipLuna</item>
+    </style>
+    <style name="colorOnBackgroundChipMars" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/mars_100</item>
+    </style>
+</resources>

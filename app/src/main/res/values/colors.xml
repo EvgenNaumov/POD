@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#FF6200EE</color>
+    <color name="colorAccent">#FF03DAC5</color>
+    <color name="color_gray">#66000000</color>
+
+
+    <color name="color_light_gray">#f6f6fa</color>
+    <color name="color_sheet_line">#663b4351</color>
+
+    <!-- Theme 2 Mars -->
+    <color name="mars_200">#EDA3AC</color>
+    <color name="mars_500">#DC627B</color>
+    <color name="mars_700">#980350</color>
+    <color name="mars_100">#E188F1</color>
+    <color name="mars_teal_200">#A103DA</color>
+    <color name="mars_teal_700">#4F1663</color>
+    <color name="mars_black">#FF000000</color>
+    <color name="mars_white">#FFFFFFFF</color>
+
+    <color name="mars_colorPrimary">#DC627B</color>
+    <color name="mars_colorAccent">#A103DA</color>
+    <color name="colorPrimaryVariantMars">#980350</color>
+
+    <!-- Theme 2 Luna -->
+    <color name="luna_200">#FFD273</color>
+    <color name="luna_500">#FFC140</color>
+    <color name="luna_700">#FFAD00</color>
+    <color name="luna_teal_200">#01C2EB</color>
+    <color name="luna_teal_700">#FF057087</color>
+    <color name="luna_black">#FF000000</color>
+    <color name="luna_white">#FFFFFFFF</color>
+
+    <color name="luna_colorPrimary">#FFC140</color>
+    <color name="luna_colorAccent">#01C2EB</color>
+    <color name="colorPrimaryVariantLuna">#FFAD00</color>
+
+    <color name="colorOnBackgroundChipLuna">#3DB141</color>
+
+    <color name="red">#F44336</color>
+    <color name="blue">#03A9F4</color>
+
+</resources>
