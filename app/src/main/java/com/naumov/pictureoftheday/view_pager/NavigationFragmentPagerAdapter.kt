@@ -7,23 +7,33 @@ import com.naumov.pictureoftheday.view.MarsFragment
 import com.naumov.pictureoftheday.view.MoonFragment
 import com.naumov.pictureoftheday.view.SolarFragment
 
+private const val PAGE_MARS = 0
+private const val PAGE_MOON = 1
+private const val PAGE_SOLAR = 2
+
 class NavigationFragmentPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
 
-    final val PAGE_MARS = "MARS"
-    final val PAGE_MOON = "MOON"
-    final val PAGE_SOLAR = "SOLAR"
 
     private val fragments = arrayOf(MarsFragment(), MoonFragment(), SolarFragment())
-    private val fragments1 = arrayOf(PAGE_MARS, PAGE_MOON, PAGE_SOLAR)
     override fun getCount() =  fragments.size
 
     override fun getItem(position: Int): Fragment {
-        return fragments[position]
-//        return when(fragments1[position]){
-//            PAGE_MARS -> MarsFragment()
-//            PAGE_MOON -> MoonFragment()
-//            PAGE_SOLAR -> SolarFragment()
-//            else -> MarsFragment()
-//        }
+//        return fragments[position]
+        return when(position){
+            PAGE_MARS -> fragments[PAGE_MARS]
+            PAGE_MOON -> fragments[PAGE_MOON]
+            PAGE_SOLAR -> fragments[PAGE_SOLAR]
+            else -> MarsFragment()
+        }
     }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return when(position){
+            PAGE_MARS -> "MARS"
+            PAGE_MOON-> "EARTH"
+            PAGE_SOLAR-> "SOLAR"
+            else -> ""
+        }
+    }
+
 }

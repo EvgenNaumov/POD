@@ -5,12 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.naumov.pictureoftheday.databinding.FragmentSolarBinding
+import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 
 class SolarFragment : Fragment() {
 
     private var _binding: FragmentSolarBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: PictureOfTheDayViewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

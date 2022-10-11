@@ -2,6 +2,7 @@ package com.naumov.pictureoftheday.Model
 
 import com.naumov.pictureoftheday.Model.mars.PictureOfTheMarsResponseData
 import com.naumov.pictureoftheday.Model.moon.PictureOfTheEarthResponseDate
+import com.naumov.pictureoftheday.Model.moon.PodOfTheDayEarthResponseDate
 import com.naumov.pictureoftheday.Model.solar.PictureOfTheSolarResponseDate
 import retrofit2.Call
 import retrofit2.http.GET
@@ -20,8 +21,8 @@ interface PictureOfTheDayAPI {
     fun getPictureOfTheSystem(@Query("api_key") apiKey:String): Call<PictureOfTheSolarResponseDate>
 
     //earth
-    @GET("EPIC/api/natural")
-    fun getListPictureOfTheEarth(@Query("api_key") apiKey:String): Call<PictureOfTheEarthResponseDate>
+    @GET("EPIC/api/natural/images")
+    fun getListPictureOfTheEarth(@Query("api_key") apiKey:String): Call<PodOfTheDayEarthResponseDate>
 
 
 }

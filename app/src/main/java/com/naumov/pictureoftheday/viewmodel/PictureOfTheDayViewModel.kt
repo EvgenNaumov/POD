@@ -11,6 +11,7 @@ import com.naumov.pictureoftheday.Model.PODRetrofitImpl
 import com.naumov.pictureoftheday.Model.PODServerResponseData
 import com.naumov.pictureoftheday.Model.mars.PictureOfTheMarsResponseData
 import com.naumov.pictureoftheday.Model.moon.PictureOfTheEarthResponseDate
+import com.naumov.pictureoftheday.Model.moon.PodOfTheDayEarthResponseDate
 import com.naumov.pictureoftheday.Model.solar.PictureOfTheSolarResponseDate
 import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.ui.MainActivity
@@ -128,10 +129,10 @@ class PictureOfTheDayViewModel(
             }
             KEY_PAGE_EARTH -> {
                 retrofitImpl.getRetrofitImpl().getListPictureOfTheEarth(apiKey).enqueue(
-                    object : Callback<PictureOfTheEarthResponseDate> {
+                    object : Callback<PodOfTheDayEarthResponseDate> {
                         override fun onResponse(
-                            call: Call<PictureOfTheEarthResponseDate>,
-                            response: Response<PictureOfTheEarthResponseDate>
+                            call: Call<PodOfTheDayEarthResponseDate>,
+                            response: Response<PodOfTheDayEarthResponseDate>
                         ) {
                             if (response.isSuccessful && response.body() != null) {
                                 liveDataForViewToObserve.value =
@@ -150,7 +151,7 @@ class PictureOfTheDayViewModel(
                         }
 
                         override fun onFailure(
-                            call: Call<PictureOfTheEarthResponseDate>,
+                            call: Call<PodOfTheDayEarthResponseDate>,
                             t: Throwable
                         ) {
                             liveDataForViewToObserve.value = PictureOfTheDayData.Error(t)

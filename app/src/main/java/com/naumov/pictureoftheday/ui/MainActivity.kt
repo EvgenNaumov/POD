@@ -3,11 +3,13 @@ package com.naumov.pictureoftheday.ui
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.databinding.ActivityMainBinding
 import com.naumov.pictureoftheday.utils.*
 import com.naumov.pictureoftheday.view.PictureOfTheDayFragment
 import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayData
+import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
