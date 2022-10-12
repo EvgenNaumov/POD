@@ -1,43 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.naumov.pictureoftheday.utils.EquilateralImageView
+        android:id="@+id/image_solar"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:srcCompat="@drawable/bg_system"/>
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/loadingLayout"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-        <TextView
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue"
-            android:text="@string/number_1"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=".."/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/blue"
-            android:text="@string/number_2"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=".."/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:text="@string/number_3"/>
-    </LinearLayout>
+            android:layout_gravity="center" />
+    </FrameLayout>
 
 
 </LinearLayout>

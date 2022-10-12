@@ -109,7 +109,7 @@ class PictureOfTheDayFragment : Fragment() {
         when (item.itemId) {
             R.id.app_bar_telescope -> {
                 activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, NavigationFragment.newInstance())
+                    ?.replace(R.id.container, ApiFragment.newInstance())
                     ?.addToBackStack(null)
                     ?.commit()
             }

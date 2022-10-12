@@ -16,7 +16,7 @@ import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayData
 import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 import kotlin.random.Random
 
-class MoonFragment : Fragment() {
+class EarthFragment : Fragment() {
 
     private var _binding: FragmentMoonBinding? = null
     private val binding get() = _binding!!
@@ -44,21 +44,22 @@ class MoonFragment : Fragment() {
             binding.imageEarth.load(R.drawable.bg_earth)
         }
 
-        viewmodel.getData().observe(viewLifecycleOwner){renderData(it)}
+        viewmodel.getData().observe(viewLifecycleOwner) { renderData(it) }
         viewmodel.sendRequestToday(KEY_PAGE_EARTH)
     }
 
     private fun renderData(data: PictureOfTheDayData) {
         when (data) {
             is PictureOfTheDayData.SuccessEarth -> {
-                val serverResponseData:ArrayList<PodOfTheDayEarthResponseDateItem> = data.serverResponseDataEarth
-                var imageName:String?
-                var strDate:String?
+                val serverResponseData: ArrayList<PodOfTheDayEarthResponseDateItem> =
+                    data.serverResponseDataEarth
+                var imageName: String?
+                var strDate: String?
                 if (serverResponseData.isNotEmpty()) {
                     val itemList = serverResponseData[Random.nextInt(serverResponseData.size - 1)]
                     imageName = itemList.image
                     strDate = itemList.identifier
-                }else{
+                } else {
                     requireView().toast("Load error", requireContext())
                     return
                 }
@@ -68,12 +69,12 @@ class MoonFragment : Fragment() {
                 } else {
 
                     val url = "https://epic.gsfc.nasa.gov/archive/natural/" +
-                            strDate.codePointCount(0,3) + "/" + strDate.codePointCount(4,5) + "/" +  strDate.codePointCount(6,7) +
-                      "/png/" +
+                            strDate.subSequence(0, 4) + "/" + strDate.subSequence(4,6) + "/" + strDate.subSequence(6, 8) +
+                            "/png/" +
                             "$imageName" + ".png"
                     binding.imageEarth.load(url) {
-                        lifecycle(this@MoonFragment)
-                        error(R.drawable.ic_load_error_vector)
+                        lifecycle(this@EarthFragment)
+                        error(R.drawable.error_yellow_triangle)
                         placeholder(R.drawable.ic_no_photo_vector)
                         crossfade(true)
                     }
@@ -103,6 +104,6 @@ class MoonFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) = MoonFragment()
+        fun newInstance() = EarthFragment()
     }
 }

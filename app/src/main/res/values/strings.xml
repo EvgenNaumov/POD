@@ -22,4 +22,7 @@
     <string name="number_1">1</string>
     <string name="number_3">3</string>
     <string name="you_need_key_api">You need API key</string>
+    <string name="navi_earth">earth</string>
+    <string name="navi_solar">solar</string>
+    <string name="navi_mars">mars</string>
 </resources>

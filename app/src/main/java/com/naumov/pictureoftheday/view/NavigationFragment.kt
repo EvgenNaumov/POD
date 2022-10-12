@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.databinding.FragmentNavigationBinding
 import com.naumov.pictureoftheday.view_pager.NavigationFragmentPagerAdapter
@@ -34,23 +36,40 @@ class NavigationFragment : Fragment()  {
         binding.viewPager.adapter = NavigationCollectionPagerAdapter
 
         binding.tabLayoutApi.setupWithViewPager(binding.viewPager)
-        binding.tabLayoutApi.getTabAt(0)?.setIcon(R.drawable.bg_mars)
-        binding.tabLayoutApi.getTabAt(0)?.tag = "mars"
-        binding.tabLayoutApi.getTabAt(1)?.setIcon(R.drawable.bg_earth)
-        binding.tabLayoutApi.getTabAt(0)?.tag = "earth"
-        binding.tabLayoutApi.getTabAt(2)?.setIcon(R.drawable.bg_system)
-        binding.tabLayoutApi.getTabAt(0)?.tag = "system"
-
-        binding.viewPager.setOnClickListener {
-               when (it.tag){
-
-               }
+        binding.tabLayoutApi.getTabAt(0)?.apply {
+            this.setIcon(R.drawable.bg_mars)
+            this.tag = "mars"
         }
-        return binding.root
-    }
+        binding.tabLayoutApi.getTabAt(1)?.apply {
+            setIcon(R.drawable.bg_earth)
+            tag = "earth"
+        }
+        binding.tabLayoutApi.getTabAt(2)?.apply {
+            setIcon(R.drawable.bg_system)
+            tag = "system"
+        }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
+        binding.tabLayoutApi.selectTab(binding.tabLayoutApi.getTabAt(0))
+        binding.tabLayoutApi.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                Toast.makeText(context, "${tab?.tag}", Toast.LENGTH_SHORT).show()
+                when(tab?.tag){
+                    "mars"-> {}
+                    "earth"-> {}
+                    "solar"->{}
+                    else -> {}
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                Toast.makeText(context, "${tab?.tag}", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                Toast.makeText(context, "${tab?.tag}", Toast.LENGTH_SHORT).show()
+            }
+        })
+        return binding.root
     }
 
     companion object {

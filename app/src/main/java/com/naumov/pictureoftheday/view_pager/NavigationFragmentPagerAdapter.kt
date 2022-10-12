@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.naumov.pictureoftheday.view.MarsFragment
-import com.naumov.pictureoftheday.view.MoonFragment
+import com.naumov.pictureoftheday.view.EarthFragment
 import com.naumov.pictureoftheday.view.SolarFragment
 
 private const val PAGE_MARS = 0
@@ -14,7 +14,7 @@ private const val PAGE_SOLAR = 2
 class NavigationFragmentPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
 
 
-    private val fragments = arrayOf(MarsFragment(), MoonFragment(), SolarFragment())
+    private val fragments = arrayOf(MarsFragment(), EarthFragment(), SolarFragment())
     override fun getCount() =  fragments.size
 
     override fun getItem(position: Int): Fragment {
