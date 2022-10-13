@@ -1,4 +1,4 @@
-package com.naumov.pictureoftheday.Model.moon
+package com.naumov.pictureoftheday.model.earth
 
 import com.google.gson.annotations.SerializedName
 

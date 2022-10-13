@@ -1,9 +1,8 @@
-package com.naumov.pictureoftheday.Model
+package com.naumov.pictureoftheday.model
 
-import com.naumov.pictureoftheday.Model.mars.PictureOfTheMarsResponseData
-import com.naumov.pictureoftheday.Model.moon.PictureOfTheEarthResponseDate
-import com.naumov.pictureoftheday.Model.moon.PodOfTheDayEarthResponseDate
-import com.naumov.pictureoftheday.Model.solar.PictureOfTheSolarResponseDate
+import com.naumov.pictureoftheday.model.mars.PictureOfTheMarsResponseData
+import com.naumov.pictureoftheday.model.earth.PodOfTheDayEarthResponseDate
+import com.naumov.pictureoftheday.model.solar.PictureOfTheSolarResponseDate
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

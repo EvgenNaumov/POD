@@ -1,20 +1,14 @@
 package com.naumov.pictureoftheday.viewmodel
 
-import android.app.Application
-import android.provider.Settings.Global.getString
-import android.provider.Settings.Secure.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.naumov.pictureoftheday.BuildConfig.NASA_API_KEY
-import com.naumov.pictureoftheday.Model.PODRetrofitImpl
-import com.naumov.pictureoftheday.Model.PODServerResponseData
-import com.naumov.pictureoftheday.Model.mars.PictureOfTheMarsResponseData
-import com.naumov.pictureoftheday.Model.moon.PictureOfTheEarthResponseDate
-import com.naumov.pictureoftheday.Model.moon.PodOfTheDayEarthResponseDate
-import com.naumov.pictureoftheday.Model.solar.PictureOfTheSolarResponseDate
-import com.naumov.pictureoftheday.R
-import com.naumov.pictureoftheday.ui.MainActivity
+import com.naumov.pictureoftheday.model.PODRetrofitImpl
+import com.naumov.pictureoftheday.model.PODServerResponseData
+import com.naumov.pictureoftheday.model.mars.PictureOfTheMarsResponseData
+import com.naumov.pictureoftheday.model.earth.PodOfTheDayEarthResponseDate
+import com.naumov.pictureoftheday.model.solar.PictureOfTheSolarResponseDate
 import com.naumov.pictureoftheday.utils.*
 import retrofit2.Call
 import retrofit2.Callback

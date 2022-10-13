@@ -10,4 +10,6 @@
     <attr name="colorOnBackgroundChipMars" format="reference" />
     <attr name="colorOnBackgroundChipLuna" format="reference"/>
     <attr name="shapeAppearanceChip" format="reference"/>
+
+    <attr name = "MyBottomNavigationView" formaat="reference"/>
 </resources>

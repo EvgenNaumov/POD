@@ -1,10 +1,9 @@
 package com.naumov.pictureoftheday.viewmodel
 
-import com.naumov.pictureoftheday.Model.PODServerResponseData
-import com.naumov.pictureoftheday.Model.mars.PictureOfTheMarsResponseData
-import com.naumov.pictureoftheday.Model.moon.PictureOfTheEarthResponseDate
-import com.naumov.pictureoftheday.Model.moon.PodOfTheDayEarthResponseDate
-import com.naumov.pictureoftheday.Model.solar.PictureOfTheSolarResponseDate
+import com.naumov.pictureoftheday.model.PODServerResponseData
+import com.naumov.pictureoftheday.model.mars.PictureOfTheMarsResponseData
+import com.naumov.pictureoftheday.model.earth.PodOfTheDayEarthResponseDate
+import com.naumov.pictureoftheday.model.solar.PictureOfTheSolarResponseDate
 
 sealed class PictureOfTheDayData {
     data class Success(val serverResponseData: PODServerResponseData) : PictureOfTheDayData()

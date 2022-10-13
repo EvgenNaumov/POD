@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.naumov.pictureoftheday.Model.moon.PodOfTheDayEarthResponseDateItem
+import com.naumov.pictureoftheday.model.earth.PodOfTheDayEarthResponseDateItem
 import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.databinding.FragmentMoonBinding
 import com.naumov.pictureoftheday.utils.KEY_PAGE_EARTH

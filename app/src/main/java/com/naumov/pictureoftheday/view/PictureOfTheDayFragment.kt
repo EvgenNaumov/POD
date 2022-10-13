@@ -11,9 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.naumov.pictureoftheday.Model.PODServerResponseData
+import com.naumov.pictureoftheday.model.PODServerResponseData
 import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
+import com.naumov.pictureoftheday.navigation.Navigation2Fragment
 import com.naumov.pictureoftheday.ui.MainActivity
 import com.naumov.pictureoftheday.utils.KEY_PAGE_POD
 import com.naumov.pictureoftheday.utils.toast
@@ -110,6 +111,12 @@ class PictureOfTheDayFragment : Fragment() {
             R.id.app_bar_telescope -> {
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, ApiFragment.newInstance())
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }
+            R.id.app_bar_photo_library->{
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container, Navigation2Fragment.newInstance())
                     ?.addToBackStack(null)
                     ?.commit()
             }

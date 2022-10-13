@@ -1,8 +1,8 @@
-package com.naumov.pictureoftheday.Model.moon
+package com.naumov.pictureoftheday.model.solar
 
 import com.google.gson.annotations.SerializedName
 
-data class PictureOfTheEarthResponseDate(
+data class PictureOfTheSolarResponseDate(
     @SerializedName("url")
     val url: String
 )

@@ -1,9 +1,8 @@
-package com.naumov.pictureoftheday.view
+package com.naumov.pictureoftheday.navigation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -11,7 +10,6 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.databinding.FragmentNavigationBinding
-import com.naumov.pictureoftheday.view_pager.NavigationFragmentPagerAdapter
 
 class NavigationFragment : Fragment()  {
 
@@ -37,15 +35,15 @@ class NavigationFragment : Fragment()  {
 
         binding.tabLayoutApi.setupWithViewPager(binding.viewPager)
         binding.tabLayoutApi.getTabAt(0)?.apply {
-            this.setIcon(R.drawable.bg_mars)
+            this.setIcon(R.drawable.ic_mars)
             this.tag = "mars"
         }
         binding.tabLayoutApi.getTabAt(1)?.apply {
-            setIcon(R.drawable.bg_earth)
+            setIcon(R.drawable.ic_earth)
             tag = "earth"
         }
         binding.tabLayoutApi.getTabAt(2)?.apply {
-            setIcon(R.drawable.bg_system)
+            setIcon(R.drawable.ic_system)
             tag = "system"
         }
 

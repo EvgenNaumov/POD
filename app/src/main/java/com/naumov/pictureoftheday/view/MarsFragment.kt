@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.naumov.pictureoftheday.Model.mars.Photo
+import com.naumov.pictureoftheday.model.mars.Photo
 import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.databinding.FragmentMarsBinding
 import com.naumov.pictureoftheday.utils.KEY_PAGE_MARS

@@ -35,6 +35,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="itemActiveIndicatorStyle">?attr/MyBottomNavigationView</item>
     </style>
 
     <style name="Theme.Mars" parent="Theme.PictureOfTheDay">
@@ -59,6 +61,8 @@
         <item name="chipBackgroundColor">@attr/colorOnBackgroundChipLuna</item>
 
         <item name="fontFamily">@font/aclonica</item>
+
+        <item name="itemActiveIndicatorStyle">?attr/MyBottomNavigationView</item>
     </style>
 
     <style name="Theme.Luna" parent="Theme.PictureOfTheDay">
@@ -82,6 +86,8 @@
         <item name="chipBackgroundColor">?colorOnBackgroundChipMars</item>
 
         <item name="fontFamily">@font/abril_fatface</item>
+
+        <item name="itemActiveIndicatorStyle">?attr/MyBottomNavigationView</item>
     </style>
 
 </resources>

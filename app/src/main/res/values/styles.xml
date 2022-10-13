@@ -22,4 +22,15 @@
     <style name="colorOnBackgroundChipMars" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/mars_100</item>
     </style>
+
+    <style name="MyBottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/MyActiveIndicatorStyle</item>
+    </style>
+
+    <style name="MyActiveIndicatorStyle">
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.None</item>
+        <item name="android:color">?attr/themeColorPrimary</item>
+    </style>
+
+
 </resources>

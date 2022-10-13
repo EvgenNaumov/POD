@@ -1,3 +1,3 @@
-package com.naumov.pictureoftheday.Model.moon
+package com.naumov.pictureoftheday.model.earth
 
 class PodOfTheDayEarthResponseDate : ArrayList<PodOfTheDayEarthResponseDateItem>()
