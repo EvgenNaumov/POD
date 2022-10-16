@@ -47,6 +47,9 @@ class ApiFragment : Fragment() {
                 R.id.action_bottom_navigation_mars -> startFragment(MarsFragment.newInstance())
 
                 R.id.action_bottom_navigation_system -> startFragment(SolarFragment.newInstance())
+
+                R.id.action_bottom_navigation_fr -> startFragment(CoordinatorFragment.newInstance())
+
                 else -> true
             }
             true
@@ -54,10 +57,10 @@ class ApiFragment : Fragment() {
     }
 
     private fun startFragment(fragment: Fragment) {
-        childFragmentManager?.beginTransaction()
-            ?.replace(R.id.container, fragment)
-            ?.addToBackStack("")
-            ?.commit()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack("")
+            .commit()
     }
 
     companion object {

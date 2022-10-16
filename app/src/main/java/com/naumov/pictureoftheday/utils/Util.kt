@@ -13,6 +13,7 @@ const val DBY = 3
 const val PAGE_MARS = 0
 const val PAGE_EARTH = 1
 const val PAGE_SOLAR = 2
+const val PAGE_FRAG = 3
 
 
 const val KEY_PAGE_POD = "pod"

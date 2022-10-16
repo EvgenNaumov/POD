@@ -13,4 +13,9 @@
         android:id="@+id/action_bottom_navigation_mars"
         android:icon="@drawable/ic_mars"
         android:title="@string/navi_mars" />
+
+    <item
+        android:id="@+id/action_bottom_navigation_fr"
+        android:icon="@drawable/ic_send"
+        android:title="фрагм" />
 </menu>

@@ -145,7 +145,8 @@
         android:backgroundTint="@color/colorAccent"
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_plus_fab"
-        app:tint="@android:color/white" />
+        app:tint="@android:color/white"
+        android:contentDescription="Help" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

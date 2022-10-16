@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.naumov.pictureoftheday.databinding.FragmentNavigation2Binding
 import com.naumov.pictureoftheday.utils.PAGE_MARS
 import com.naumov.pictureoftheday.utils.PAGE_EARTH
+import com.naumov.pictureoftheday.utils.PAGE_FRAG
 import com.naumov.pictureoftheday.utils.PAGE_SOLAR
 
 class Navigation2Fragment : Fragment()  {
@@ -43,6 +44,7 @@ class Navigation2Fragment : Fragment()  {
                     PAGE_MARS->"mars"
                     PAGE_EARTH->"earth"
                     PAGE_SOLAR->"solar"
+                    PAGE_FRAG->"frag"
                     else -> ""
                 }
             }
