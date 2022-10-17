@@ -65,7 +65,7 @@
                 android:src="@drawable/ic_ellipse_fill_16"
                 app:layout_constraintBottom_toBottomOf="@+id/guideline_one"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline_one" />
 
@@ -76,7 +76,7 @@
                 android:src="@drawable/ic_ellipse_empty_16"
                 app:layout_constraintBottom_toBottomOf="@+id/guideline_one"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline_one" />
 
@@ -87,7 +87,7 @@
                 android:src="@drawable/ic_ellipse_empty_16"
                 app:layout_constraintBottom_toBottomOf="@+id/guideline_one"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline_one" />
 

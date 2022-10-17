@@ -4,37 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    >
-<com.google.android.material.appbar.AppBarLayout
-    android:id="@+id/app_bar_layout"
-    android:layout_width="match_parent"
-    android:layout_height="400dp"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.CollapsingToolbarLayout
-        android:id="@+id/collapsing_toolbar_Layout"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        app:layout_scrollFlags="scroll|enterAlways">
+        android:layout_height="400dp"
+        android:fitsSystemWindows="true">
 
-        <com.naumov.pictureoftheday.utils.EquilateralImageView
-            android:id="@+id/image_fr"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_Layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/bg_earth" />
+            app:layout_scrollFlags="scroll|enterAlways">
 
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
+            <com.naumov.pictureoftheday.utils.EquilateralImageView
+                android:id="@+id/image_earth"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/picture_color_back"
+                app:layout_behavior=".behavior.MyBehavior"
+                app:srcCompat="@drawable/bg_earth" />
 
-</com.google.android.material.appbar.AppBarLayout>
 
-   <androidx.core.widget.NestedScrollView
+            <FrameLayout
+                android:id="@+id/loadingLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:visibility="gone"
+                tools:visibility="gone">
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,7 +62,7 @@
 
             app:behavior_hideable="true"
             app:behavior_peekHeight="50dp"
-            app:layoutDescription="@xml/fragment_coordinator_scene">
+            app:layoutDescription="@xml/fragment_earth_scene">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_one"
@@ -57,6 +72,7 @@
                 app:layout_constraintGuide_percent="0.01">
 
             </androidx.constraintlayout.widget.Guideline>
+
 
             <ImageView
                 android:id="@+id/point_one"
@@ -91,6 +107,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline_one" />
 
+
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_two"
                 android:layout_width="wrap_content"
@@ -100,7 +117,6 @@
 
             </androidx.constraintlayout.widget.Guideline>
 
-
             <View
                 android:id="@+id/line_sheet"
                 android:layout_width="25dp"
@@ -108,8 +124,7 @@
                 android:background="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/guideline_two"
-                app:layout_constraintBottom_toBottomOf="@id/guideline_two"/>
+                app:layout_constraintTop_toTopOf="@id/guideline_two" />
 
             <TextView
                 android:id="@+id/text_title"
@@ -117,38 +132,31 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Helo "
-                app:layout_constraintTop_toBottomOf="@id/line_sheet"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line_sheet" />
 
             <TextView
                 android:id="@+id/text_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/large_text"
-                app:layout_constraintTop_toBottomOf="@+id/text_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_title" />
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:backgroundTint="@color/colorAccent"
-    app:layout_anchor="@id/app_bar_layout"
-    app:layout_anchorGravity="bottom|center"
-    app:layout_behavior=".behavior.BotttomBehavior"
-    app:srcCompat="@android:drawable/ic_dialog_email"
-   />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_behavior=".behavior.BotttomBehavior"
+        app:srcCompat="@drawable/ic_favourite_menu" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-
-
-
 

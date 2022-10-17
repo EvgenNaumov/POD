@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.naumov.pictureoftheday.model.earth.PodOfTheDayEarthResponseDateItem
 import com.naumov.pictureoftheday.R
-import com.naumov.pictureoftheday.databinding.FragmentMoonBinding
+import com.naumov.pictureoftheday.databinding.FragmentEarthBinding
 import com.naumov.pictureoftheday.utils.KEY_PAGE_EARTH
 import com.naumov.pictureoftheday.utils.toast
 import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayData
@@ -18,7 +18,7 @@ import kotlin.random.Random
 
 class EarthFragment : Fragment() {
 
-    private var _binding: FragmentMoonBinding? = null
+    private var _binding: FragmentEarthBinding? = null
     private val binding get() = _binding!!
     private val viewmodel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
@@ -33,7 +33,7 @@ class EarthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentMoonBinding.inflate(inflater, container, false)
+        _binding = FragmentEarthBinding.inflate(inflater, container, false)
         return binding.root
     }
 
