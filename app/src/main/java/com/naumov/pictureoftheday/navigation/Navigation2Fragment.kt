@@ -39,6 +39,7 @@ class Navigation2Fragment : Fragment()  {
         binding.viewPager2.adapter = NavigationCollectionPagerAdapter
 
         TabLayoutMediator(binding.tabLayoutApi2,binding.viewPager2,object : TabLayoutMediator.TabConfigurationStrategy{
+
             override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
                 tab.text = when(position){
                     PAGE_MARS->"mars"
@@ -49,6 +50,24 @@ class Navigation2Fragment : Fragment()  {
                 }
             }
         }).attach()
+
+        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            }
+        })
         return binding.root
 
     }

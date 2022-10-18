@@ -25,7 +25,7 @@ class NavigationFragmentPagerAdapter2(fm: Fragment) : FragmentStateAdapter(fm) {
             PAGE_MARS -> fragments[PAGE_MARS]
             PAGE_EARTH -> fragments[PAGE_EARTH]
             PAGE_SOLAR -> fragments[PAGE_SOLAR]
-            PAGE_FRAG -> fragments[PAGE_FRAG]
+//            PAGE_FRAG -> fragments[PAGE_FRAG]
             else -> MarsFragment()
         }
     }

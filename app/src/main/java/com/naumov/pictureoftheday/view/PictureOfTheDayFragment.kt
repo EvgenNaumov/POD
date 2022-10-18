@@ -1,10 +1,17 @@
 package com.naumov.pictureoftheday.view
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.ChangeImageTransform
+import android.transition.TransitionManager
+import android.transition.TransitionSet
 import android.view.*
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +27,7 @@ import com.naumov.pictureoftheday.utils.KEY_PAGE_POD
 import com.naumov.pictureoftheday.utils.toast
 import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayData
 import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayViewModel
+import kotlin.properties.Delegates
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -32,6 +40,8 @@ class PictureOfTheDayFragment : Fragment() {
         ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
     }
 
+    private var isFlag = false;
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +51,6 @@ class PictureOfTheDayFragment : Fragment() {
         viewModel.sendRequestToday(KEY_PAGE_POD)
 
         _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -110,7 +119,7 @@ class PictureOfTheDayFragment : Fragment() {
         when (item.itemId) {
             R.id.app_bar_telescope -> {
                 activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, ApiFragment.newInstance())
+                    ?.replace(R.id.container, Navigation2Fragment.newInstance())
                     ?.addToBackStack(null)
                     ?.commit()
             }
@@ -130,6 +139,27 @@ class PictureOfTheDayFragment : Fragment() {
                     ?.addToBackStack(null)
                     ?.commit()
             }
+            R.id.app_bar_zoom -> {
+                isFlag = !isFlag
+                val transitionSet = TransitionSet()
+                val param = binding.main.layoutParams
+                val changeImageTransform = ChangeImageTransform()
+                val changeBounds = ChangeBounds()
+
+                transitionSet.addTransition(changeBounds)
+                transitionSet.addTransition(changeImageTransform)
+
+                TransitionManager.beginDelayedTransition(binding.main,transitionSet)
+                if (isFlag){
+                    param.height = CoordinatorLayout.LayoutParams.MATCH_PARENT
+                    binding.imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                } else{
+                    param.height = CoordinatorLayout.LayoutParams.WRAP_CONTENT
+                    binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                }
+
+            }
+
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
@@ -151,9 +181,8 @@ class PictureOfTheDayFragment : Fragment() {
                     requireView().toast("Link is empty", requireContext())
                 } else {
                     setData(serverResponseData)
-                    binding.includeBottomSheet.bottomSheetDescriptionHeader.text =
-                        data.serverResponseData.title
-                    binding.includeBottomSheet.bottomSheetDescription.text =
+                    binding.includeBottomSheetDescription.bottomSheetDescriptionHeader.text = data.serverResponseData.title
+                    binding.includeBottomSheetDescription.bottomSheetDescription.text =
                         data.serverResponseData.explanation
                 }
             }
@@ -196,7 +225,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun setBottomSheetBehavior() {
         bottomSheetBehavior =
-            BottomSheetBehavior.from(binding.includeBottomSheet.bottomSheetContainer)
+            BottomSheetBehavior.from(binding.includeBottomSheetDescription.bottomSheetContainer)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
