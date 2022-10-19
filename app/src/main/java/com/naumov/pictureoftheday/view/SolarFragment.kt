@@ -1,10 +1,17 @@
 package com.naumov.pictureoftheday.view
 
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.ChangeImageTransform
+import android.transition.TransitionManager
+import android.transition.TransitionSet
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnticipateOvershootInterpolator
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.snackbar.Snackbar
@@ -23,6 +30,8 @@ class SolarFragment : Fragment() {
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
     }
+
+    private var show = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +54,52 @@ class SolarFragment : Fragment() {
 
         viewModel.getData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.sendRequestToday(KEY_PAGE_SOLAR)
+
+        binding.imageSolar.setOnClickListener {
+            if (show) hideComponents() else showComponemts()
+        }
+    }
+
+    private fun showComponemts() {
+        show = true
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(requireContext(), R.layout.fragment_solar_end)
+        val transition = ChangeBounds()
+        transition.interpolator = AnticipateOvershootInterpolator(1.0f)
+        transition.duration = 1200
+        val changeImage = ChangeImageTransform()
+        val transitionSet = TransitionSet()
+        transitionSet.addTransition(transition)
+        transitionSet.addTransition(changeImage)
+        TransitionManager.beginDelayedTransition(binding.constraintImage,
+            transitionSet)
+        constraintSet.applyTo(binding.constraintImage)
+
+        val param: ViewGroup.LayoutParams = binding.imageSolar.layoutParams
+        param.height = ViewGroup.LayoutParams.MATCH_PARENT
+        binding.imageSolar.layoutParams = param
+        binding.imageSolar.scaleType = ImageView.ScaleType.CENTER_CROP
+    }
+
+    private fun hideComponents() {
+        show = false
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(requireContext(), R.layout.fragment_solar)
+        val transition = ChangeBounds()
+        transition.interpolator = AnticipateOvershootInterpolator(1.0f)
+        transition.duration = 1200
+        val changeImage = ChangeImageTransform()
+        val transitionSet = TransitionSet()
+        transitionSet.addTransition(transition)
+        transitionSet.addTransition(changeImage)
+        TransitionManager.beginDelayedTransition(binding.constraintImage,
+            transitionSet)
+        constraintSet.applyTo(binding.constraintImage)
+
+        val param: ViewGroup.LayoutParams = binding.imageSolar.layoutParams
+        param.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.imageSolar.layoutParams = param
+        binding.imageSolar.scaleType = ImageView.ScaleType.CENTER
 
     }
 
