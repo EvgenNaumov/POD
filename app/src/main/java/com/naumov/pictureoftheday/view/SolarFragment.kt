@@ -131,6 +131,8 @@ class SolarFragment : Fragment() {
                     placeholder(R.drawable.bg_earth)
                     error(R.drawable.error_yellow_triangle)
                 }
+                binding.title.text = data.serverResponseDataSolar.title
+                binding.date.text = data.serverResponseDataSolar.date
                 binding.imageSolar.visibility = View.VISIBLE
                 binding.loadingLayout.visibility = View.GONE
             }

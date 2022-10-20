@@ -132,8 +132,7 @@
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:paddingBottom="8dp"
-        android:text="На фото видно камни и песок в кратере Даниэлсона (диаметр
-кратера около 67 км), расположенного на юго-востоке области Arabia Terra."
+        android:text="Это фотография солнечной системы загруженная с сайта NASA"
         android:textColor="#FFFF"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/constraint_image"
