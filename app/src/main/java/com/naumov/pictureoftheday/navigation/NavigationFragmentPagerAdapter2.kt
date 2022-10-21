@@ -6,15 +6,12 @@ import com.naumov.pictureoftheday.utils.PAGE_MARS
 import com.naumov.pictureoftheday.utils.PAGE_EARTH
 import com.naumov.pictureoftheday.utils.PAGE_FRAG
 import com.naumov.pictureoftheday.utils.PAGE_SOLAR
-import com.naumov.pictureoftheday.view.CoordinatorFragment
-import com.naumov.pictureoftheday.view.MarsFragment
-import com.naumov.pictureoftheday.view.EarthFragment
-import com.naumov.pictureoftheday.view.SolarFragment
+import com.naumov.pictureoftheday.view.*
 
 
 class NavigationFragmentPagerAdapter2(fm: Fragment) : FragmentStateAdapter(fm) {
 
-    private val fragments = arrayOf(MarsFragment(), EarthFragment(), SolarFragment(), CoordinatorFragment())
+    private val fragments = arrayOf(MarsFragment(), EarthFragment(), SolarFragment(), RecyclerFragment())
 
     override fun getItemCount(): Int {
         return fragments.size
@@ -25,7 +22,7 @@ class NavigationFragmentPagerAdapter2(fm: Fragment) : FragmentStateAdapter(fm) {
             PAGE_MARS -> fragments[PAGE_MARS]
             PAGE_EARTH -> fragments[PAGE_EARTH]
             PAGE_SOLAR -> fragments[PAGE_SOLAR]
-//            PAGE_FRAG -> fragments[PAGE_FRAG]
+            PAGE_FRAG -> fragments[PAGE_FRAG]
             else -> MarsFragment()
         }
     }
