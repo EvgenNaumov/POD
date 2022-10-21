@@ -5,25 +5,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-import coil.load
-import com.google.android.material.snackbar.Snackbar
-import com.naumov.pictureoftheday.R
-import com.naumov.pictureoftheday.databinding.FragmentCoordinatorBinding
 import com.naumov.pictureoftheday.databinding.FragmentRecyclerBinding
-import com.naumov.pictureoftheday.databinding.FragmentSolarBinding
 import com.naumov.pictureoftheday.recycler.Data
+import com.naumov.pictureoftheday.recycler.OnListItemClickListener
 import com.naumov.pictureoftheday.recycler.RecyclerAdapter
-import com.naumov.pictureoftheday.utils.KEY_PAGE_EARTH
-import com.naumov.pictureoftheday.utils.KEY_PAGE_SOLAR
-import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayData
-import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 
-class RecyclerFragment : Fragment() {
+class RecyclerFragment : Fragment(), OnListItemClickListener {
 
     private var _binding: FragmentRecyclerBinding? = null
     private val binding get() = _binding!!
+    private lateinit var adapter: RecyclerAdapter
 
+    private val listData = arrayListOf<Data>(
+        Data(someText = "Заголовок", type = Data.TYPE_HEADER),
+        Data(someText = "Mars", type = Data.TYPE_MARS),
+        Data(someText = "Mars", type = Data.TYPE_MARS),
+        Data(someText = "Mars", type = Data.TYPE_MARS),
+        Data(someText = "Заголовок", type = Data.TYPE_HEADER),
+        Data(someText = "Earth", type = Data.TYPE_EARTH),
+        Data(someText = "Earth", type = Data.TYPE_EARTH),
+        Data(someText = "Earth", type = Data.TYPE_EARTH),
+        Data(someText = "Earth", type = Data.TYPE_EARTH),
+        Data(someText = "Earth", type = Data.TYPE_EARTH),
+
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +40,7 @@ class RecyclerFragment : Fragment() {
     ): View? {
 
         _binding = FragmentRecyclerBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -43,21 +49,9 @@ class RecyclerFragment : Fragment() {
         if (savedInstanceState == null) {
 
         }
-
-        val data = arrayListOf<Data>(
-            Data(someText = "Mars", type = Data.TYPE_MARS),
-            Data(someText = "Earth", type = Data.TYPE_EARTH),
-            Data(someText = "Mars", type = Data.TYPE_MARS),
-            Data(someText = "Mars", type = Data.TYPE_MARS),
-            Data(someText = "Mars", type = Data.TYPE_MARS),
-            Data(someText = "Earth", type = Data.TYPE_EARTH),
-            Data(someText = "Earth", type = Data.TYPE_EARTH),
-            Data(someText = "Earth", type = Data.TYPE_EARTH),
-            Data(someText = "Earth", type = Data.TYPE_EARTH),
-
-        )
-
-        binding.recyclerView.adapter  = RecyclerAdapter(data)
+        adapter = RecyclerAdapter(this)
+        adapter.setList(listData)
+        binding.recyclerView.adapter = adapter
     }
 
     override fun onDestroy() {
@@ -68,5 +62,45 @@ class RecyclerFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = RecyclerFragment()
+    }
+
+    override fun onItemClick(data: Data) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onAddBtnClick(position: Int, typeData: Int) {
+        when (typeData) {
+            Data.TYPE_EARTH -> {
+                listData.add(position, Data(Data.TYPE_EARTH, "Earth", "Новый"))
+            }
+            Data.TYPE_MARS -> {
+                listData.add(position, Data(Data.TYPE_MARS, "Mars", "Новый"))
+            }
+            Data.TYPE_HEADER -> {
+                listData.add(position, Data(Data.TYPE_HEADER, "Заголовок", "Новый"))
+            }
+        }
+        adapter.setAddToList(listData, position)
+
+    }
+
+    override fun onMoveClick(position: Int, direction: Int, data:Data) {
+        listData.removeAt(position)
+        when (direction) {
+            0 -> {
+                listData.add(Math.min(listData.size, position - 1),data)
+                adapter.moveItem(listData, position, Math.min(listData.size, position - 1))
+            }
+            1 -> {
+                listData.add(Math.min(listData.size, position + 1),data)
+                adapter.moveItem(listData, position, Math.min(listData.size, position + 1))
+            }
+        }
+
+    }
+
+    override fun onRemoveBtnClick(position: Int) {
+        listData.removeAt(position)
+        adapter.setRemoveToList(listData, position)
     }
 }

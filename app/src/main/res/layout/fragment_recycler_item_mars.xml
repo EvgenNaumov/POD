@@ -44,7 +44,7 @@
         />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/moveItemUp"
+        android:id="@+id/marsMoveItemUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -57,14 +57,14 @@
         />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/moveItemDown"
+        android:id="@+id/marsMoveItemDown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:tint="@color/design_default_color_error"
         app:layout_constraintBottom_toBottomOf="@+id/marsTextView"
         app:layout_constraintEnd_toStartOf="@+id/addItemImageView"
-        app:layout_constraintStart_toEndOf="@+id/moveItemUp"
+        app:layout_constraintStart_toEndOf="@+id/marsMoveItemUp"
         app:layout_constraintTop_toTopOf="@+id/marsTextView"
         app:srcCompat="@android:drawable/arrow_down_float"
         />
