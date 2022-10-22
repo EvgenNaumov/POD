@@ -19,16 +19,16 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
     private lateinit var adapter: RecyclerAdapter
 
     private val listData = arrayListOf(
-        Pair(Data(someText = "Заголовок", type = Data.TYPE_HEADER), false),
-        Pair(Data(someText = "Mars", type = Data.TYPE_MARS), false),
-        Pair(Data(someText = "Mars", type = Data.TYPE_MARS), false),
-        Pair(Data(someText = "Mars", type = Data.TYPE_MARS), false),
-        Pair(Data(someText = "Заголовок", type = Data.TYPE_HEADER), false),
-        Pair(Data(someText = "Earth", type = Data.TYPE_EARTH), false),
-        Pair(Data(someText = "Earth", type = Data.TYPE_EARTH), false),
-        Pair(Data(someText = "Earth", type = Data.TYPE_EARTH), false),
-        Pair(Data(someText = "Earth", type = Data.TYPE_EARTH), false),
-        Pair(Data(someText = "Earth", type = Data.TYPE_EARTH), false),
+        Pair(Data(id=0, someText = "Заголовок", type = Data.TYPE_HEADER), false),
+        Pair(Data(id=1, someText = "Mars", type = Data.TYPE_MARS), false),
+        Pair(Data(id=2, someText = "Mars", type = Data.TYPE_MARS), false),
+        Pair(Data(id=3, someText = "Mars", type = Data.TYPE_MARS), false),
+        Pair(Data(id=4, someText = "Заголовок", type = Data.TYPE_HEADER), false),
+        Pair(Data(id=5, someText = "Earth", type = Data.TYPE_EARTH), false),
+        Pair(Data(id=6,someText = "Earth", type = Data.TYPE_EARTH), false),
+        Pair(Data(id=7,someText = "Earth", type = Data.TYPE_EARTH), false),
+        Pair(Data(id=8,someText = "Earth", type = Data.TYPE_EARTH), false),
+        Pair(Data(id=9,someText = "Earth", type = Data.TYPE_EARTH), false),
 
         )
 
@@ -73,15 +73,15 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
         when (typeData) {
             Data.TYPE_EARTH -> {
                 listData.add(position,
-                    Pair(Data(Data.TYPE_EARTH, "Earth", "Новый"), false))
+                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1,Data.TYPE_EARTH,"Earth", "Новый"), false))
             }
             Data.TYPE_MARS -> {
                 listData.add(position,
-                    Pair(Data(Data.TYPE_MARS, "Mars", "Новый"),false))
+                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1,Data.TYPE_MARS, "Mars", "Новый"),false))
             }
             Data.TYPE_HEADER -> {
                 listData.add(position,
-                    Pair(Data(Data.TYPE_HEADER, "Заголовок", "Новый"),false))
+                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1, Data.TYPE_HEADER, "Заголовок", "Новый"),false))
             }
         }
         adapter.setAddToList(listData, position)

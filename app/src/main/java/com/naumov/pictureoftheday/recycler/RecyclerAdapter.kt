@@ -1,20 +1,34 @@
 package com.naumov.pictureoftheday.recycler
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.databinding.FragmentRecyclerItemEarthBinding
 import com.naumov.pictureoftheday.databinding.FragmentRecyclerItemHeaderBinding
 import com.naumov.pictureoftheday.databinding.FragmentRecyclerItemMarsBinding
+import com.naumov.pictureoftheday.recycler.diffutil.Change
+import com.naumov.pictureoftheday.recycler.diffutil.DiffutilCallback
+import com.naumov.pictureoftheday.recycler.diffutil.createCombinedPayload
 
 class RecyclerAdapter(val OnItemClickCallback:OnListItemClickListener) :
         RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>(),
         ItemTouchHelperAdapter {
     private lateinit var listData: MutableList<Pair<Data,Boolean>>
+
+    fun setList(newList: MutableList<Pair<Data,Boolean>>) {
+        this.listData = newList
+    }
+
+    fun setListDataForDiffUtil(listDataNew:MutableList<Pair<Data,Boolean>>){
+        val diff = DiffUtil.calculateDiff(DiffutilCallback(this.listData,listDataNew))
+        diff.dispatchUpdatesTo(this)
+        this.listData = listDataNew
+    }
 
     override fun getItemCount(): Int {
         return listData.count()
@@ -54,14 +68,30 @@ class RecyclerAdapter(val OnItemClickCallback:OnListItemClickListener) :
         holder.bind(listData[position])
     }
 
-   inner class MarsViewHolder(val binding: FragmentRecyclerItemMarsBinding) :
+    override fun onBindViewHolder(
+        holder: BaseViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()){
+            super.onBindViewHolder(holder, position, payloads)
+        } else{
+            val createCombinePayload = createCombinedPayload(payloads as List<Change<Pair<Data, Boolean>>>)
+            //если в DiffUtilCallback проверяется много полей то if обязателен
+            if (createCombinePayload.newData.first.someDescription!=createCombinePayload.oldData.first.someDescription)
+            holder.itemView.findViewById<TextView>(R.id.earthDescriptionTextView).text = createCombinePayload.newData.first.someDescription
+        }
+
+    }
+
+    inner class MarsViewHolder(val binding: FragmentRecyclerItemMarsBinding) :
         BaseViewHolder(binding.root), ItemTouchHelperViewHolder {
        override fun onItemSelect() {
            binding.root.setBackgroundColor(ContextCompat.getColor(binding.root.context, R.color.colorPrimary))
        }
 
        override fun onItemClear() {
-           itemView.setBackgroundColor(Color.WHITE)
+           itemView.setBackgroundColor(0)
        }
 
        override fun bind(data: Pair<Data,Boolean>) {
@@ -124,10 +154,6 @@ class RecyclerAdapter(val OnItemClickCallback:OnListItemClickListener) :
 
     abstract class BaseViewHolder(view: View):RecyclerView.ViewHolder(view){
             abstract fun bind(data:Pair<Data,Boolean>)
-    }
-
-    fun setList(newList: MutableList<Pair<Data,Boolean>>) {
-        this.listData = newList
     }
 
     fun setAddToList(newList: MutableList<Pair<Data,Boolean>>, position: Int) {
