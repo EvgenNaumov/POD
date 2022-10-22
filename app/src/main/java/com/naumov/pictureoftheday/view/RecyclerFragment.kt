@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.naumov.pictureoftheday.databinding.FragmentRecyclerBinding
 import com.naumov.pictureoftheday.recycler.Data
+import com.naumov.pictureoftheday.recycler.ItemTouchHelperCallback
 import com.naumov.pictureoftheday.recycler.OnListItemClickListener
 import com.naumov.pictureoftheday.recycler.RecyclerAdapter
 
@@ -16,17 +18,17 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
     private val binding get() = _binding!!
     private lateinit var adapter: RecyclerAdapter
 
-    private val listData = arrayListOf<Data>(
-        Data(someText = "Заголовок", type = Data.TYPE_HEADER),
-        Data(someText = "Mars", type = Data.TYPE_MARS),
-        Data(someText = "Mars", type = Data.TYPE_MARS),
-        Data(someText = "Mars", type = Data.TYPE_MARS),
-        Data(someText = "Заголовок", type = Data.TYPE_HEADER),
-        Data(someText = "Earth", type = Data.TYPE_EARTH),
-        Data(someText = "Earth", type = Data.TYPE_EARTH),
-        Data(someText = "Earth", type = Data.TYPE_EARTH),
-        Data(someText = "Earth", type = Data.TYPE_EARTH),
-        Data(someText = "Earth", type = Data.TYPE_EARTH),
+    private val listData = arrayListOf(
+        Pair(Data(someText = "Заголовок", type = Data.TYPE_HEADER), false),
+        Pair(Data(someText = "Mars", type = Data.TYPE_MARS), false),
+        Pair(Data(someText = "Mars", type = Data.TYPE_MARS), false),
+        Pair(Data(someText = "Mars", type = Data.TYPE_MARS), false),
+        Pair(Data(someText = "Заголовок", type = Data.TYPE_HEADER), false),
+        Pair(Data(someText = "Earth", type = Data.TYPE_EARTH), false),
+        Pair(Data(someText = "Earth", type = Data.TYPE_EARTH), false),
+        Pair(Data(someText = "Earth", type = Data.TYPE_EARTH), false),
+        Pair(Data(someText = "Earth", type = Data.TYPE_EARTH), false),
+        Pair(Data(someText = "Earth", type = Data.TYPE_EARTH), false),
 
         )
 
@@ -37,7 +39,7 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentRecyclerBinding.inflate(inflater, container, false)
 
@@ -46,12 +48,11 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (savedInstanceState == null) {
 
-        }
         adapter = RecyclerAdapter(this)
         adapter.setList(listData)
         binding.recyclerView.adapter = adapter
+        ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.recyclerView)
     }
 
     override fun onDestroy() {
@@ -71,29 +72,32 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
     override fun onAddBtnClick(position: Int, typeData: Int) {
         when (typeData) {
             Data.TYPE_EARTH -> {
-                listData.add(position, Data(Data.TYPE_EARTH, "Earth", "Новый"))
+                listData.add(position,
+                    Pair(Data(Data.TYPE_EARTH, "Earth", "Новый"), false))
             }
             Data.TYPE_MARS -> {
-                listData.add(position, Data(Data.TYPE_MARS, "Mars", "Новый"))
+                listData.add(position,
+                    Pair(Data(Data.TYPE_MARS, "Mars", "Новый"),false))
             }
             Data.TYPE_HEADER -> {
-                listData.add(position, Data(Data.TYPE_HEADER, "Заголовок", "Новый"))
+                listData.add(position,
+                    Pair(Data(Data.TYPE_HEADER, "Заголовок", "Новый"),false))
             }
         }
         adapter.setAddToList(listData, position)
 
     }
 
-    override fun onMoveClick(position: Int, direction: Int, data:Data) {
+    override fun onMoveClick(position: Int, direction: Int, data: Pair<Data,Boolean>) {
         listData.removeAt(position)
         when (direction) {
-            0 -> {
-                listData.add(Math.min(listData.size, position - 1),data)
-                adapter.moveItem(listData, position, Math.min(listData.size, position - 1))
-            }
             1 -> {
-                listData.add(Math.min(listData.size, position + 1),data)
-                adapter.moveItem(listData, position, Math.min(listData.size, position + 1))
+                listData.add(0.coerceAtLeast(position - 1), data)
+                adapter.moveItem(listData, position, listData.indexOf(data))
+            }
+            0 -> {
+                listData.add(listData.size.coerceAtMost(position + 1), data)
+                adapter.moveItem(listData, position, listData.indexOf(data))
             }
         }
 

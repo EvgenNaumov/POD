@@ -177,6 +177,7 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
 
+
         }
         return super.onOptionsItemSelected(item)
     }
