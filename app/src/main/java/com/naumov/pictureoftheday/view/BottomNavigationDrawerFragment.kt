@@ -30,6 +30,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                     activity?.supportFragmentManager?.beginTransaction()
                         ?.replace(R.id.container, RecyclerFragment.newInstance())
                         ?.addToBackStack(null)?.commit()
+                    activity?.supportFragmentManager?.fragments?.remove(this)
                 }
                 R.id.navigation_two -> Toast.makeText(context, "2", Toast.LENGTH_SHORT).show()
             }

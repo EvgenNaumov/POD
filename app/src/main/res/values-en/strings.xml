@@ -22,4 +22,8 @@
     <string name="navi_mars">mars</string>
     <string name="photo_library">Picture</string>
     <string name="you_need_key_api">You need API key</string>
+    <string name="height_priority">height</string>
+    <string name="medium_priority">medium</string>
+    <string name="low_priority">low</string>
+    <string name="normal_priority">usual</string>
 </resources>

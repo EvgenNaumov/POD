@@ -114,4 +114,8 @@
         "On the layout level, design your app layout to minimize opportunities for interference. "
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"</string>
+    <string name="height_priority">высокий</string>
+    <string name="medium_priority">средний</string>
+    <string name="low_priority">низкий</string>
+    <string name="normal_priority">обычный</string>
 </resources>

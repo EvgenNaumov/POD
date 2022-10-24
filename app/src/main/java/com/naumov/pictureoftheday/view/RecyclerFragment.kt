@@ -11,6 +11,7 @@ import com.naumov.pictureoftheday.recycler.Data
 import com.naumov.pictureoftheday.recycler.ItemTouchHelperCallback
 import com.naumov.pictureoftheday.recycler.OnListItemClickListener
 import com.naumov.pictureoftheday.recycler.RecyclerAdapter
+import com.naumov.pictureoftheday.utils.PriorityEnum
 
 class RecyclerFragment : Fragment(), OnListItemClickListener {
 
@@ -22,10 +23,10 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
         Pair(Data(id=0, someText = "Заголовок", type = Data.TYPE_HEADER), false),
         Pair(Data(id=1, someText = "Mars", type = Data.TYPE_MARS), false),
         Pair(Data(id=2, someText = "Mars", type = Data.TYPE_MARS), false),
-        Pair(Data(id=3, someText = "Mars", type = Data.TYPE_MARS), false),
+        Pair(Data(id=3, someText = "Mars", type = Data.TYPE_MARS, priority = PriorityEnum.Height), false),
         Pair(Data(id=4, someText = "Заголовок", type = Data.TYPE_HEADER), false),
-        Pair(Data(id=5, someText = "Earth", type = Data.TYPE_EARTH), false),
-        Pair(Data(id=6,someText = "Earth", type = Data.TYPE_EARTH), false),
+        Pair(Data(id=5, someText = "Earth", type = Data.TYPE_EARTH, priority = PriorityEnum.Height), false),
+        Pair(Data(id=6,someText = "Earth", type = Data.TYPE_EARTH, priority = PriorityEnum.Low), false),
         Pair(Data(id=7,someText = "Earth", type = Data.TYPE_EARTH), false),
         Pair(Data(id=8,someText = "Earth", type = Data.TYPE_EARTH), false),
         Pair(Data(id=9,someText = "Earth", type = Data.TYPE_EARTH), false),
@@ -106,5 +107,13 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
     override fun onRemoveBtnClick(position: Int) {
         listData.removeAt(position)
         adapter.setRemoveToList(listData, position)
+    }
+
+    override fun onChangePriority(position: Int, valueProirity:PriorityEnum) {
+       val dataPair =  listData[position]
+        dataPair.first.priority = valueProirity
+        listData.removeAt(position)
+        listData.add(position,dataPair)
+        adapter.setAddToList(listData, position)
     }
 }

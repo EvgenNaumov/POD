@@ -7,12 +7,24 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     >
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/marsPriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.16"
+        android:visibility="visible"
+        app:srcCompat="@drawable/normal_priority"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/marsImageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/marsPriority"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bg_mars"
         />

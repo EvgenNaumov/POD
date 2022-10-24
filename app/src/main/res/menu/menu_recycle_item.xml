@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/action_height_priority"
+
+            android:title="@string/height_priority"
+            android:orderInCategory="10"
+            android:visible="true"
+            app:showAsAction="always"/>
+
+        <item
+            android:id="@+id/action_medium_priority"
+            android:title="@string/medium_priority"
+            android:orderInCategory="20"
+            android:visible="true"
+            app:showAsAction="always"/>
+
+        <item
+            android:id="@+id/action_low_priority"
+            android:title="@string/low_priority"
+            android:orderInCategory="30"
+            android:visible="true"
+            app:showAsAction="always"/>
+
+        <item
+            android:id="@+id/action_normal_priority"
+            android:title="@string/normal_priority"
+            android:orderInCategory="40"
+            android:visible="true"
+            app:showAsAction="always"/>
+
+</menu>

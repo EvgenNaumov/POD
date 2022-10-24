@@ -21,6 +21,7 @@ class DiffutilCallback(
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldItems[oldItemPosition].first.someDescription == newItems[newItemPosition].first.someDescription
+                || oldItems[oldItemPosition].first.priority == newItems[newItemPosition].first.priority
         //можно проверять неограниченное кол-во полей
     }
 

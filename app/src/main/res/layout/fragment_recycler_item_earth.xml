@@ -9,10 +9,23 @@
     >
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/earthPriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.16"
+        android:visibility="visible"
+        app:srcCompat="@drawable/normal_priority"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/earthImageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/earthPriority"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bg_earth"
         />
@@ -21,7 +34,7 @@
         android:id="@+id/earthTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Марс"
+        android:text="Земля"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/earthImageView"
