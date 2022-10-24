@@ -71,21 +71,22 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
     }
 
     override fun onAddBtnClick(position: Int, typeData: Int) {
+       val listDataAdapter = adapter.getListData()
         when (typeData) {
             Data.TYPE_EARTH -> {
-                listData.add(position,
-                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1,Data.TYPE_EARTH,"Earth", "Новый"), false))
+                listDataAdapter.add(listDataAdapter.size.coerceAtMost(position + 1),
+                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1,Data.TYPE_EARTH,"Earth", "Новый",PriorityEnum.Normal), false))
             }
             Data.TYPE_MARS -> {
-                listData.add(position,
-                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1,Data.TYPE_MARS, "Mars", "Новый"),false))
+                listDataAdapter.add(listDataAdapter.size.coerceAtMost(position + 1),
+                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1,Data.TYPE_MARS, "Mars", "Новый",PriorityEnum.Normal),false))
             }
             Data.TYPE_HEADER -> {
-                listData.add(position,
-                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1, Data.TYPE_HEADER, "Заголовок", "Новый"),false))
+                listDataAdapter.add(listDataAdapter.size.coerceAtMost(position + 1),
+                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1, Data.TYPE_HEADER, "Заголовок", "Новый",PriorityEnum.Normal),false))
             }
         }
-        adapter.setAddToList(listData, position)
+        adapter.setAddToList(listDataAdapter, position)
 
     }
 

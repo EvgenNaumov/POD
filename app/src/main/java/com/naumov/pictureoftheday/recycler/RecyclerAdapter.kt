@@ -31,6 +31,10 @@ class RecyclerAdapter(val OnItemClickCallback: OnListItemClickListener) :
         this.listData = newList
     }
 
+    fun getListData():MutableList<Pair<Data, Boolean>>{
+        return this.listData
+    }
+
     fun setListDataForDiffUtil(listDataNew: MutableList<Pair<Data, Boolean>>) {
         val diff = DiffUtil.calculateDiff(DiffutilCallback(this.listData, listDataNew))
         diff.dispatchUpdatesTo(this)
@@ -183,7 +187,6 @@ class RecyclerAdapter(val OnItemClickCallback: OnListItemClickListener) :
             binding.marsPriority.setOnClickListener { it ->
                 val popupMenu = PopupMenu(binding.root.context, it)
                 popupMenu.inflate(R.menu.menu_recycle_item)
-                val menu = popupMenu.menu
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.action_height_priority -> {
@@ -292,7 +295,6 @@ class RecyclerAdapter(val OnItemClickCallback: OnListItemClickListener) :
             binding.earthPriority.setOnClickListener { it ->
                 val popupMenu = PopupMenu(binding.root.context, it)
                 popupMenu.inflate(R.menu.menu_recycle_item)
-                val menu = popupMenu.menu
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.action_height_priority -> {
