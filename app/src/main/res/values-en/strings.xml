@@ -9,8 +9,8 @@
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="dby">DBY</string>
-    <string name="message_hdurl">Today there is no picture of the day, but there is a video ! \\n
-                %1$s click %2$sHERE%3$s to open in a new window</string>
+    <string name="message_hdurl">Today there is no picture of the day, but there is a video! \n
+                %1$s \n click %2$sHERE%3$s to open in a new window</string>
     <string name="search_wiki">Find in Wiki</string>
     <string name="library">Photo</string>
     <string name="theme_one">Main</string>

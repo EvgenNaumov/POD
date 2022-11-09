@@ -8,8 +8,8 @@
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
     <string name="dby">Позавчера</string>
-    <string name="message_hdurl">"Сегодня у нас без картинки дня, но есть  видео дня!\\n
-                %1$s кликни %2$sЗДЕСЬ%3$s чтобы открыть в новом окне"</string>
+    <string name="message_hdurl">"Сегодня у нас без картинки дня, но есть  видео дня! \n
+                %1$s \n кликни %2$sЗДЕСЬ%3$s чтобы открыть в новом окне"</string>
     <string name="search_wiki">Найти в Википедии</string>
     <string name="theme_one">Основная</string>
     <string name="theme_two">Луна</string>

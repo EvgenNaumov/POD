@@ -1,9 +1,8 @@
 package com.naumov.pictureoftheday.view
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
+import android.os.*
 import android.transition.*
 import android.view.*
 import android.widget.ImageView
@@ -20,11 +19,11 @@ import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import com.naumov.pictureoftheday.navigation.Navigation2Fragment
 import com.naumov.pictureoftheday.ui.MainActivity
+import com.naumov.pictureoftheday.utils.FormatTextSpannable
 import com.naumov.pictureoftheday.utils.KEY_PAGE_POD
 import com.naumov.pictureoftheday.utils.toast
 import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayData
 import com.naumov.pictureoftheday.viewmodel.PictureOfTheDayViewModel
-import kotlin.properties.Delegates
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -38,6 +37,9 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private var isFlag = false;
+    private var mapList: MutableList<List<Char>>? = null
+
+    private var formatText:FormatTextSpannable?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,17 +65,21 @@ class PictureOfTheDayFragment : Fragment() {
             })
         }
 
+        formatText = FormatTextSpannable()
+
         binding.imageView.setOnClickListener {
-            isFlag=!isFlag
+            isFlag = !isFlag
             TransitionManager.beginDelayedTransition(
                 binding.main, TransitionSet()
                     .addTransition(ChangeBounds())
                     .addTransition(ChangeImageTransform())
             )
-            val params:ViewGroup.LayoutParams = binding.imageView.layoutParams
-            params.height = if (isFlag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
+            params.height =
+                if (isFlag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
             binding.imageView.layoutParams = params
-            binding.imageView.scaleType = if (isFlag) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+            binding.imageView.scaleType =
+                if (isFlag) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
         }
 
 
@@ -134,7 +140,7 @@ class PictureOfTheDayFragment : Fragment() {
                     ?.addToBackStack(null)
                     ?.commit()
             }
-            R.id.app_bar_photo_library->{
+            R.id.app_bar_photo_library -> {
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, Navigation2Fragment.newInstance())
                     ?.addToBackStack(null)
@@ -160,11 +166,11 @@ class PictureOfTheDayFragment : Fragment() {
                 transitionSet.addTransition(changeBounds)
                 transitionSet.addTransition(changeImageTransform)
 
-                TransitionManager.beginDelayedTransition(binding.main,transitionSet)
-                if (isFlag){
+                TransitionManager.beginDelayedTransition(binding.main, transitionSet)
+                if (isFlag) {
                     param.height = CoordinatorLayout.LayoutParams.MATCH_PARENT
                     binding.imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                } else{
+                } else {
                     param.height = CoordinatorLayout.LayoutParams.WRAP_CONTENT
                     binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
                 }
@@ -193,9 +199,28 @@ class PictureOfTheDayFragment : Fragment() {
                     requireView().toast("Link is empty", requireContext())
                 } else {
                     setData(serverResponseData)
-                    binding.includeBottomSheetDescription.bottomSheetDescriptionHeader.text = data.serverResponseData.title
+
+                    binding.includeBottomSheetDescription.bottomSheetDescriptionHeader.text =
+                        data.serverResponseData.title
                     binding.includeBottomSheetDescription.bottomSheetDescription.text =
                         data.serverResponseData.explanation
+
+
+//                    val spannebleString =
+//                        SpannableString(data.serverResponseData.explanation.toString())
+//                    binding.includeBottomSheetDescription.bottomSheetDescription.setText(
+//                        spannebleString,
+//                        TextView.BufferType.SPANNABLE
+//                    )
+//                    val spannebleText =
+//                        binding.includeBottomSheetDescription.bottomSheetDescription.text as Spannable
+
+
+                    val spannebleText = formatText?.setSpanneble(data.serverResponseData.explanation.toString(),binding.includeBottomSheetDescription.bottomSheetDescription)
+                    if (spannebleText != null) {
+                        formatText?.setСolorTextExplanation(spannebleText)
+                    }
+
                 }
             }
             is PictureOfTheDayData.Loading -> {
@@ -206,6 +231,7 @@ class PictureOfTheDayFragment : Fragment() {
             }
         }
     }
+
 
     private fun setData(data: PODServerResponseData) {
         val url = data.hdurl
@@ -233,6 +259,14 @@ class PictureOfTheDayFragment : Fragment() {
             }
             startActivity(i)
         }
+
+        val spannebleText = formatText?.setSpanneble(videoOfTheDay.text.toString(),videoOfTheDay)
+        if (spannebleText != null) {
+//            formatText?.setTextAsHyperReference(spannebleText,videoUrl)
+            formatText?.setBulletSpan(requireContext(),spannebleText)
+            formatText?.setTextAsHyperReference(spannebleText)
+        }
+
     }
 
     private fun setBottomSheetBehavior() {
