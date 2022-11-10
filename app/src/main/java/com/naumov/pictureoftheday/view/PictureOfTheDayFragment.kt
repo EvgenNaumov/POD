@@ -1,11 +1,17 @@
 package com.naumov.pictureoftheday.view
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.*
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.StyleSpan
+import android.text.style.TypefaceSpan
 import android.transition.*
 import android.view.*
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
@@ -14,11 +20,13 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.naumov.pictureoftheday.BuildConfig
 import com.naumov.pictureoftheday.model.PODServerResponseData
 import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
 import com.naumov.pictureoftheday.navigation.Navigation2Fragment
 import com.naumov.pictureoftheday.ui.MainActivity
+import com.naumov.pictureoftheday.utils.DEBUG
 import com.naumov.pictureoftheday.utils.FormatTextSpannable
 import com.naumov.pictureoftheday.utils.KEY_PAGE_POD
 import com.naumov.pictureoftheday.utils.toast
@@ -82,22 +90,26 @@ class PictureOfTheDayFragment : Fragment() {
                 if (isFlag) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
         }
 
-
         initChip()
-        if (savedInstanceState == null) {
-            binding.chipGroup.check(R.id.chip_td)
-        }
+        binding.chipGroup.check(R.id.chip_td)
 
         setBottomAppBar(view)
     }
 
+
     private fun initChip() {
+
+        val textchipTd = SpannableString(binding.chipTd.text.toString())
+        val textchipEst = SpannableString(binding.chipEst.text.toString())
+        val textchipDby = SpannableString(binding.chipDby.text.toString())
 
         binding.chipTd.setOnClickListener {
             binding.imageView.setImageDrawable(requireContext().getDrawable(R.drawable.ic_no_photo_vector))
             binding.imageView.visibility = View.VISIBLE
             binding.videoOfTheDay.visibility = View.GONE
+
             viewModel.sendRequestToday(KEY_PAGE_POD)
+
         }
         binding.chipEst.setOnClickListener {
             binding.imageView.setImageDrawable(requireContext().getDrawable(R.drawable.ic_no_photo_vector))
@@ -105,6 +117,7 @@ class PictureOfTheDayFragment : Fragment() {
             binding.videoOfTheDay.visibility = View.GONE
 
             viewModel.sendRequestYT(KEY_PAGE_POD)
+
         }
         binding.chipDby.setOnClickListener {
             binding.imageView.setImageDrawable(requireContext().getDrawable(R.drawable.ic_no_photo_vector))
@@ -112,8 +125,48 @@ class PictureOfTheDayFragment : Fragment() {
             binding.videoOfTheDay.visibility = View.GONE
 
             viewModel.sendRequestTDBY(KEY_PAGE_POD)
+
         }
         binding.chipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
+
+            if (checkedIds.isNotEmpty()){
+                when(checkedIds[0]){
+                    R.id.chip_td->{
+
+                        textchipTd.setSpan(StyleSpan(Typeface.BOLD),0,binding.chipTd.text.length,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        binding.chipTd.text = textchipTd
+
+                        textchipEst.removeSpan(StyleSpan(Typeface.BOLD))
+                        binding.chipEst.text = textchipEst.toString()
+
+                        textchipDby.removeSpan(StyleSpan(Typeface.BOLD))
+                        binding.chipDby.text = textchipDby.toString()
+                    }
+                    R.id.chip_est->{
+
+                        textchipEst.setSpan(StyleSpan(Typeface.BOLD),0,binding.chipEst.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        binding.chipEst.text = textchipEst
+
+                        textchipTd.removeSpan(StyleSpan(Typeface.BOLD))
+                        binding.chipTd.text = textchipTd.toString()
+
+                        textchipDby.removeSpan(StyleSpan(Typeface.BOLD))
+                        binding.chipDby.text = textchipDby.toString()
+                    }
+                    R.id.chip_dby->{
+
+                        textchipDby.setSpan(StyleSpan(Typeface.BOLD),0,binding.chipDby.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        binding.chipDby.text = textchipDby
+
+                        textchipEst.removeSpan(StyleSpan(Typeface.BOLD))
+                        binding.chipEst.text = textchipEst.toString()
+
+                        textchipTd.removeSpan(StyleSpan(Typeface.BOLD))
+                        binding.chipTd.text = textchipTd.toString()
+                    }
+                }
+            }
+
         }
     }
 
@@ -180,6 +233,9 @@ class PictureOfTheDayFragment : Fragment() {
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
+                    val bundle:Bundle = Bundle()
+                    bundle.putString("key_text",binding.includeBottomSheetDescription.bottomSheetDescription.text.toString())
+                    BottomNavigationDrawerFragment().arguments = bundle
                 }
             }
 
@@ -205,21 +261,10 @@ class PictureOfTheDayFragment : Fragment() {
                     binding.includeBottomSheetDescription.bottomSheetDescription.text =
                         data.serverResponseData.explanation
 
-
-//                    val spannebleString =
-//                        SpannableString(data.serverResponseData.explanation.toString())
-//                    binding.includeBottomSheetDescription.bottomSheetDescription.setText(
-//                        spannebleString,
-//                        TextView.BufferType.SPANNABLE
-//                    )
-//                    val spannebleText =
-//                        binding.includeBottomSheetDescription.bottomSheetDescription.text as Spannable
-
-
-                    val spannebleText = formatText?.setSpanneble(data.serverResponseData.explanation.toString(),binding.includeBottomSheetDescription.bottomSheetDescription)
-                    if (spannebleText != null) {
-                        formatText?.setСolorTextExplanation(spannebleText)
-                    }
+//                    val spannebleText = formatText?.setSpanneble(data.serverResponseData.explanation.toString(),binding.includeBottomSheetDescription.bottomSheetDescription)
+//                    if (spannebleText != null) {
+//                        formatText?.setСolorTextExplanation(spannebleText)
+//                    }
 
                 }
             }

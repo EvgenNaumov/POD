@@ -2,11 +2,15 @@ package com.naumov.pictureoftheday.utils
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.Spanned
 import android.text.style.BulletSpan
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.naumov.pictureoftheday.R
@@ -76,11 +80,13 @@ class FormatTextSpannable {
 
         val text = spannebleText.toString();
 
-        val re = "(\\b(https?|ftp|file)://)?(www.)?([A-Za-z0-9+&@#/%?=~_|!:,.;](.(a-z){3,5}))".toRegex()
+        //val re = "(\\b(https?|ftp|file)://)?(www.)?([A-Za-z0-9+&@#/%?=~_|!:,.;](.(a-z){3,5}))".toRegex()
+        val re = "((https?|ftp|file)://)|(www)".toRegex()
+        val subDomen = "//*[a-z]".toRegex().findAll(text).toList()
+        val dd = "((https?|ftp|file)://)|(www.)([a-z]++).([a-z][a-z]|[a-z]|[a-z])((//[a-z]))?".toRegex().findAll("sdfs df www,yandex.ru/ttt/ff").toList()
+        val re1 = "(//[A-Za-z0-9+&@#/%?=~_|!:,.;])*".toRegex()
         val urls = re.findAll(text).toList()
-        if (urls.isNotEmpty()){
-            println("http range ${urls[0].range}")
-        }
+        val urls1 = re1.findAll(text).toList()
 
 
     }
@@ -89,7 +95,7 @@ class FormatTextSpannable {
 
         val text = spannebleText.toString()
         val listSrlit = text.split("\n").toMutableList()
-        var countLine = 0;
+        var countLine = 0;var i=1;
         listSrlit.forEach {
             val startPos = countLine
             val endPos = countLine++
@@ -99,9 +105,22 @@ class FormatTextSpannable {
                 endPos,
                 0
             )
+            if (i==2) {
+                setUnderlineSpan(spannebleText, startPos, endPos)
+            }
+            i++
             countLine += it.length.coerceAtMost(text.length - 1)
         }
 
+    }
+
+    fun setUnderlineSpan(spannebleText: Spannable, startPos:Int = 0, endPos:Int=0) {
+
+        spannebleText.setSpan(
+            UnderlineSpan(),
+            startPos,
+            endPos,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
 
     fun String.indexesOf(substr: String, ignoreCase: Boolean = true): List<Int> =

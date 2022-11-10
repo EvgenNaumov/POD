@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.naumov.pictureoftheday.R
 import com.naumov.pictureoftheday.databinding.BottomNavigationLayoutBinding
+import com.naumov.pictureoftheday.utils.FormatTextSpannable
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     private var _binding: BottomNavigationLayoutBinding? = null
@@ -32,7 +33,9 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                         ?.addToBackStack(null)?.commit()
                     activity?.supportFragmentManager?.fragments?.remove(this)
                 }
-                R.id.navigation_two -> Toast.makeText(context, "2", Toast.LENGTH_SHORT).show()
+                R.id.navigation_two -> {
+                    Toast.makeText(context, "2", Toast.LENGTH_SHORT).show()
+                }
             }
             true
         }
