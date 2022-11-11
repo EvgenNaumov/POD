@@ -118,4 +118,5 @@
     <string name="medium_priority">средний</string>
     <string name="low_priority">низкий</string>
     <string name="normal_priority">обычный</string>
+    <string name="color_text">color text</string>
 </resources>

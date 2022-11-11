@@ -28,6 +28,9 @@ const val THEME3 = 3
 const val KEY_SP = "key_sp"
 const val KEY_CURRENT_THEME = "current_theme"
 
+const val SPLASH_MILLI_FUTURE = 2000L
+const val SPLASH_COUNTDOWN_INTERVAL = 1000L
+
 val DEBUG: Boolean = BuildConfig.DEBUG && true
 const val baseUrl = "https://api.nasa.gov/"
 const val TAG = "@@@"

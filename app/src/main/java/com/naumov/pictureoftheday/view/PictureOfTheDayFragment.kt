@@ -49,6 +49,8 @@ class PictureOfTheDayFragment : Fragment() {
 
     private var formatText:FormatTextSpannable?=null
 
+    private var isColorText = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -230,6 +232,18 @@ class PictureOfTheDayFragment : Fragment() {
 
             }
 
+            R.id.app_color_text->{
+                    val spannebleText = formatText?.setSpanneble(binding.includeBottomSheetDescription.bottomSheetDescription.text.toString(),binding.includeBottomSheetDescription.bottomSheetDescription)
+                    if (spannebleText != null) {
+                        if (!isColorText) {
+                            formatText?.setСolorTextExplanation(spannebleText)
+                        } else {
+                            spannebleText.removeSpan(FormatTextSpannable())
+                        }
+                        isColorText=!isColorText
+                    }
+            }
+
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
@@ -260,11 +274,6 @@ class PictureOfTheDayFragment : Fragment() {
                         data.serverResponseData.title
                     binding.includeBottomSheetDescription.bottomSheetDescription.text =
                         data.serverResponseData.explanation
-
-//                    val spannebleText = formatText?.setSpanneble(data.serverResponseData.explanation.toString(),binding.includeBottomSheetDescription.bottomSheetDescription)
-//                    if (spannebleText != null) {
-//                        formatText?.setСolorTextExplanation(spannebleText)
-//                    }
 
                 }
             }

@@ -26,4 +26,5 @@
     <string name="medium_priority">medium</string>
     <string name="low_priority">low</string>
     <string name="normal_priority">usual</string>
+    <string name="color_text">color text</string>
 </resources>

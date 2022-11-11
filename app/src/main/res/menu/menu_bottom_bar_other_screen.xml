@@ -7,4 +7,9 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search"
         app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/app_color_text"
+        android:icon="@drawable/ic_baseline_color_lens_24"
+        android:title="@string/color_text"
+        app:showAsAction="ifRoom"/>
 </menu>
