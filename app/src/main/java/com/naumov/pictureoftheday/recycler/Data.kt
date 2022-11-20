@@ -6,10 +6,12 @@ import java.util.*
 
 data class Data(
     val id: Int = 0,
+    val title:String,
     val type: Int = PAGE_EARTH,
     val someText: String = "Text",
     val someDescription: String? = "Description",
-    var priority:PriorityEnum = PriorityEnum.Normal
+    var priority:PriorityEnum = PriorityEnum.Normal,
+    val id_section:String
 ) {
     companion object {
         const val TYPE_EARTH = 0

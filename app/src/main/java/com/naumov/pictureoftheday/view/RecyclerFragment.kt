@@ -5,33 +5,50 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.android.material.snackbar.Snackbar
 import com.naumov.pictureoftheday.databinding.FragmentRecyclerBinding
-import com.naumov.pictureoftheday.recycler.Data
-import com.naumov.pictureoftheday.recycler.ItemTouchHelperCallback
-import com.naumov.pictureoftheday.recycler.OnListItemClickListener
-import com.naumov.pictureoftheday.recycler.RecyclerAdapter
+import com.naumov.pictureoftheday.recycler.*
 import com.naumov.pictureoftheday.utils.PriorityEnum
+import com.naumov.pictureoftheday.viewmodel.NoticeAppState
+import com.naumov.pictureoftheday.viewmodel.NoticeViewModel
 
 class RecyclerFragment : Fragment(), OnListItemClickListener {
 
     private var _binding: FragmentRecyclerBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: RecyclerAdapter
+    private lateinit var listData:MutableList<Pair<Data,Boolean>>
 
-    private val listData = arrayListOf(
-        Pair(Data(id=0, someText = "Заголовок", type = Data.TYPE_HEADER), false),
-        Pair(Data(id=1, someText = "Mars", type = Data.TYPE_MARS), false),
-        Pair(Data(id=2, someText = "Mars", type = Data.TYPE_MARS), false),
-        Pair(Data(id=3, someText = "Mars", type = Data.TYPE_MARS, priority = PriorityEnum.Height), false),
-        Pair(Data(id=4, someText = "Заголовок", type = Data.TYPE_HEADER), false),
-        Pair(Data(id=5, someText = "Earth", type = Data.TYPE_EARTH, priority = PriorityEnum.Height), false),
-        Pair(Data(id=6,someText = "Earth", type = Data.TYPE_EARTH, priority = PriorityEnum.Low), false),
-        Pair(Data(id=7,someText = "Earth", type = Data.TYPE_EARTH), false),
-        Pair(Data(id=8,someText = "Earth", type = Data.TYPE_EARTH), false),
-        Pair(Data(id=9,someText = "Earth", type = Data.TYPE_EARTH), false),
-
-        )
+    private val viewModel: NoticeViewModel by lazy {
+        ViewModelProvider(this)[NoticeViewModel::class.java]
+    }
+//    private val listData = arrayListOf(
+//        Pair(NoticeData(id = 0, someText = "Заголовок", type = Data.TYPE_HEADER), false),
+//        Pair(NoticeData(id = 1, someText = "Mars", type = Data.TYPE_MARS), false),
+//        Pair(NoticeData(id = 2, someText = "Mars", type = Data.TYPE_MARS), false),
+//        Pair(
+//            NoticeData(id = 3, someText = "Mars", type = Data.TYPE_MARS, priority = PriorityEnum.Height),
+//            false
+//        ),
+//        Pair(NoticeData(id = 4, someText = "Заголовок", type = Data.TYPE_HEADER), false),
+//        Pair(
+//            NoticeData(
+//                id = 5,
+//                someText = "Earth",
+//                type = Data.TYPE_EARTH,
+//                priority = PriorityEnum.Height
+//            ), false
+//        ),
+//        Pair(
+//            NoticeData(id = 6, someText = "Earth", type = Data.TYPE_EARTH, priority = PriorityEnum.Low),
+//            false
+//        ),
+//        Pair(NoticeData(id = 7, someText = "Earth", type = Data.TYPE_EARTH), false),
+//        Pair(NoticeData(id = 8, someText = "Earth", type = Data.TYPE_EARTH), false),
+//        Pair(NoticeData(id = 9, someText = "Earth", type = Data.TYPE_EARTH), false),
+//    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,9 +68,25 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = RecyclerAdapter(this)
-        adapter.setList(listData)
+//        adapter.setList(listData)
         binding.recyclerView.adapter = adapter
         ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.recyclerView)
+
+        val observer = { data: NoticeAppState -> renderData(data) }
+        viewModel.getData().observe(viewLifecycleOwner, observer)
+        viewModel.getAll()
+    }
+
+    private fun renderData(data: NoticeAppState) {
+        when (data) {
+            is NoticeAppState.Error -> {
+                Snackbar.make(binding.root, "Ошибка получения данных", Snackbar.LENGTH_SHORT)
+            }
+            is NoticeAppState.Success->{
+                adapter.setList(data.noticeData.toMutableList())
+                listData = adapter.getListData()
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -71,26 +104,60 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
     }
 
     override fun onAddBtnClick(position: Int, typeData: Int) {
-       val listDataAdapter = adapter.getListData()
+        val listDataAdapter = adapter.getListData()
+
         when (typeData) {
             Data.TYPE_EARTH -> {
-                listDataAdapter.add(listDataAdapter.size.coerceAtMost(position + 1),
-                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1,Data.TYPE_EARTH,"Earth", "Новый",PriorityEnum.Normal), false))
+                listData.add(listDataAdapter.size.coerceAtMost(position + 1),
+                    Pair(
+                        Data(
+                            listData.maxOf { listD -> listD.first.id } + 1,
+                            title = "Заметка ".plus((listData.maxOf { listD -> listD.first.id } + 1).toString())  ,
+                            type = Data.TYPE_EARTH,
+                            someText = "Новая заметка",
+                            someDescription = "",
+                            priority = PriorityEnum.Normal,
+                            id_section = "земля"
+                        ), false
+                    )
+                )
             }
             Data.TYPE_MARS -> {
-                listDataAdapter.add(listDataAdapter.size.coerceAtMost(position + 1),
-                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1,Data.TYPE_MARS, "Mars", "Новый",PriorityEnum.Normal),false))
+                listData.add(listData.size.coerceAtMost(position + 1),
+                    Pair(
+                        Data(
+                            listData.maxOf { listD -> listD.first.id } + 1,
+                            title = "Заметка ".plus((listData.maxOf { listD -> listD.first.id } + 1).toString())  ,
+                            type = Data.TYPE_MARS,
+                            someText = "Новая заметка",
+                            someDescription = "",
+                            priority = PriorityEnum.Normal,
+                            id_section = "марс"
+                        ), false
+                    )
+                )
             }
             Data.TYPE_HEADER -> {
-                listDataAdapter.add(listDataAdapter.size.coerceAtMost(position + 1),
-                    Pair(Data(listData.maxOf { listD -> listD.first.id}+1, Data.TYPE_HEADER, "Заголовок", "Новый",PriorityEnum.Normal),false))
+                listData.add(listData.size.coerceAtMost(position + 1),
+                    Pair(
+                        Data(
+                            listData.maxOf { listD -> listD.first.id } + 1,
+                            title = "Заметка ".plus((listData.maxOf { listD -> listD.first.id } + 1).toString())  ,
+                            type = Data.TYPE_HEADER,
+                            someText = "Новая заметка",
+                            someDescription = "",
+                            priority = PriorityEnum.Normal,
+                            id_section = "марс"
+                        ), false
+                    )
+                )
             }
         }
         adapter.setAddToList(listDataAdapter, position)
 
     }
 
-    override fun onMoveClick(position: Int, direction: Int, data: Pair<Data,Boolean>) {
+    override fun onMoveClick(position: Int, direction: Int, data: Pair<Data, Boolean>) {
         listData.removeAt(position)
         when (direction) {
             1 -> {
@@ -110,11 +177,15 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
         adapter.setRemoveToList(listData, position)
     }
 
-    override fun onChangePriority(position: Int, valueProirity:PriorityEnum) {
-       val dataPair =  listData[position]
+    override fun onChangePriority(position: Int, valueProirity: PriorityEnum) {
+        val dataPair = listData[position]
         dataPair.first.priority = valueProirity
         listData.removeAt(position)
-        listData.add(position,dataPair)
+        listData.add(position, dataPair)
         adapter.setAddToList(listData, position)
+    }
+
+    interface callBackListNotice {
+        fun onResponse(listNotice: List<Data>)
     }
 }

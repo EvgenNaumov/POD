@@ -5,6 +5,13 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import com.naumov.pictureoftheday.BuildConfig
+import com.naumov.pictureoftheday.recycler.Data
+import com.naumov.pictureoftheday.room.NoticeEntity
+
+const val HEIGHT_PRIORITY = 1
+const val MEDIUM_PRIORITY = 2
+const val LOW_PRIORITY = 3
+const val NORMAL_PRIORITY = 4
 
 const val TODAY = 1
 const val YESTERDAY = 2
@@ -38,5 +45,36 @@ fun View.toast(string: String?, context: Context) {
     Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
         setGravity(Gravity.BOTTOM, 0, 250)
         show()
+    }
+}
+
+fun convertNoticeEntityToNotice(noticeEntity:List<NoticeEntity>):List<Pair<Data,Boolean>>{
+   return noticeEntity.map {
+       Pair(Data(title = it.title, someText = it.someText, someDescription = it.description, priority = convertPriorityToData(it.priority), id_section = it.id_section),false)
+   }
+}
+
+fun convertPriorityToData(priority: Int): PriorityEnum {
+   return when(priority){
+        HEIGHT_PRIORITY -> PriorityEnum.Height
+        MEDIUM_PRIORITY -> PriorityEnum.Medium
+        LOW_PRIORITY -> PriorityEnum.Low
+        NORMAL_PRIORITY -> PriorityEnum.Normal
+       else -> {PriorityEnum.Normal}
+   }
+
+}
+
+fun convertNoticeToNoticeEntity(notice: Data):NoticeEntity{
+    return NoticeEntity(id=0, id_section = notice.id_section, title = notice.title, someText = notice.someText, description = notice.someDescription?:"", priority = convertPriorityToDB(notice.priority))
+}
+
+fun convertPriorityToDB(priority: PriorityEnum): Int {
+   return when(priority){
+        PriorityEnum.Height  -> HEIGHT_PRIORITY
+        PriorityEnum.Medium -> MEDIUM_PRIORITY
+        PriorityEnum.Low -> LOW_PRIORITY
+        PriorityEnum.Normal -> NORMAL_PRIORITY
+        else -> {NORMAL_PRIORITY}
     }
 }

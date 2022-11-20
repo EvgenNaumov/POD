@@ -1,7 +1,5 @@
 package com.naumov.pictureoftheday.recycler
 
-import android.graphics.drawable.Drawable
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +18,6 @@ import com.naumov.pictureoftheday.recycler.diffutil.Change
 import com.naumov.pictureoftheday.recycler.diffutil.DiffutilCallback
 import com.naumov.pictureoftheday.recycler.diffutil.createCombinedPayload
 import com.naumov.pictureoftheday.utils.PriorityEnum
-import java.io.InputStream
 
 class RecyclerAdapter(val OnItemClickCallback: OnListItemClickListener) :
     RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>(),
@@ -94,7 +91,7 @@ class RecyclerAdapter(val OnItemClickCallback: OnListItemClickListener) :
             super.onBindViewHolder(holder, position, payloads)
         } else {
             val createCombinePayload =
-                createCombinedPayload(payloads as MutableList<Change<Pair<Data, Boolean>>>)//
+                createCombinedPayload(payloads as MutableList<Change<Pair<NoticeData, Boolean>>>)//
             //если в DiffUtilCallback проверяется много полей то if обязателен
             if (createCombinePayload.newData.first.someDescription != createCombinePayload.oldData.first.someDescription) {
                 if (createCombinePayload.newData.first.type == Data.TYPE_EARTH){
