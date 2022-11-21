@@ -22,7 +22,7 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
     private lateinit var listData:MutableList<Pair<Data,Boolean>>
 
     private val viewModel: NoticeViewModel by lazy {
-        ViewModelProvider(this)[NoticeViewModel::class.java]
+        ViewModelProvider(this).get(NoticeViewModel::class.java)
     }
 //    private val listData = arrayListOf(
 //        Pair(NoticeData(id = 0, someText = "Заголовок", type = Data.TYPE_HEADER), false),
@@ -83,8 +83,8 @@ class RecyclerFragment : Fragment(), OnListItemClickListener {
                 Snackbar.make(binding.root, "Ошибка получения данных", Snackbar.LENGTH_SHORT)
             }
             is NoticeAppState.Success->{
-                adapter.setList(data.noticeData.toMutableList())
-                listData = adapter.getListData()
+                listData = data.noticeData.toMutableList()
+                adapter.setList(listData)
             }
         }
     }

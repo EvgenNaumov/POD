@@ -9,11 +9,11 @@ import java.lang.IllegalStateException
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        val appInstance = this
+        appInstance = this
     }
 
     companion object {
-        private val appInstance: App? = null
+        private var appInstance: App? = null
         private var db: NoticeDB? = null
         private const val DB_NAME = "Notice.db"
 

@@ -4,11 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.naumov.pictureoftheday.recycler.Data
+import com.naumov.pictureoftheday.room.NoticeRepositoryAll
 import com.naumov.pictureoftheday.room.NoticeRoomImpl
 
 class NoticeViewModel(
     private val liveData: MutableLiveData<NoticeAppState> = MutableLiveData(),
-    private val repository: NoticeRoomImpl
+    private val repository: NoticeRoomImpl = NoticeRoomImpl()
 ) : ViewModel() {
 
     fun getData(): LiveData<NoticeAppState> {

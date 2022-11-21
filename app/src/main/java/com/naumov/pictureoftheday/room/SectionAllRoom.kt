@@ -1,4 +1,4 @@
-package com.naumov.pictureoftheday.model.room
+package com.naumov.pictureoftheday.room
 
 import com.naumov.pictureoftheday.viewmodel.NoticeViewModel
 
